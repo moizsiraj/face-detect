@@ -5,6 +5,7 @@ import ILF from "./components/ILF/ILF";
 import Rank from "./components/rank/rank";
 import Face from "./components/face/face";
 import Signin from "./components/signin/signin";
+import Register from "./components/register/register";
 import Particles from "react-particles-js";
 import Clarifai from "clarifai";
 import "./App.css";
@@ -33,6 +34,7 @@ class App extends Component {
       imageUrl: "",
       box: {},
       route: "signin",
+      isSignedIn: false,
     };
   }
 
@@ -51,7 +53,6 @@ class App extends Component {
   };
 
   displayFaceBox = (box) => {
-    console.log(box);
     this.setState({ box: box });
   };
 
@@ -70,6 +71,11 @@ class App extends Component {
   };
 
   onRouteChange = (route) => {
+    if (route === "signout") {
+      this.setState({ isSignedIn: false });
+    } else if (route === "home") {
+      this.setState({ isSignedIn: true });
+    }
     this.setState({ route: route });
   };
 
@@ -77,10 +83,11 @@ class App extends Component {
     return (
       <div className="App">
         <Particles className="particles" params={options} />
-        <Navigation onRouteChange={this.onRouteChange} />
-        {this.state.route === "signin" ? (
-          <Signin onRouteChange={this.onRouteChange} />
-        ) : (
+        <Navigation
+          isSignedIn={this.state.isSignedIn}
+          onRouteChange={this.onRouteChange}
+        />
+        {this.state.route === "home" ? (
           <div>
             <Logo />
             <Rank />
@@ -90,6 +97,10 @@ class App extends Component {
             />
             <Face box={this.state.box} imageUrl={this.state.imageUrl} />
           </div>
+        ) : this.state.route === "signin" ? (
+          <Signin onRouteChange={this.onRouteChange} />
+        ) : (
+          <Register onRouteChange={this.onRouteChange} />
         )}
       </div>
     );
