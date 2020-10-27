@@ -35,8 +35,30 @@ class App extends Component {
       box: {},
       route: "signin",
       isSignedIn: false,
+      user:{
+            id: '',
+            name: "",
+            email: "",
+            entries: 0,
+            joined: '',
+      }
     };
   }
+
+  loadUser = (data) => {
+    this.setState({user: {
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      entries: data.entries,
+      joined: data.joined,
+    }})
+  }
+
+
+  // componentDidMount(){
+  //   fetch('http://localhost:3001').then(response => response.json()).then(console.log)
+  // }
 
   claculateFaceLocation = (data) => {
     const clarifaiFace =
@@ -71,12 +93,12 @@ class App extends Component {
   };
 
   onRouteChange = (route) => {
+    this.setState({ route: route });
     if (route === "signout") {
       this.setState({ isSignedIn: false });
     } else if (route === "home") {
       this.setState({ isSignedIn: true });
     }
-    this.setState({ route: route });
   };
 
   render() {
@@ -87,7 +109,7 @@ class App extends Component {
           isSignedIn={this.state.isSignedIn}
           onRouteChange={this.onRouteChange}
         />
-        {this.state.route === "home" ? (
+        {this.state.route === "home" ? 
           <div>
             <Logo />
             <Rank />
@@ -97,10 +119,9 @@ class App extends Component {
             />
             <Face box={this.state.box} imageUrl={this.state.imageUrl} />
           </div>
-        ) : this.state.route === "signin" ? (
-          <Signin onRouteChange={this.onRouteChange} />
-        ) : (
-          <Register onRouteChange={this.onRouteChange} />
+         :( this.state.route === "signin"  
+         ? <Signin onRouteChange={this.onRouteChange} />
+         : <Register onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>
         )}
       </div>
     );
