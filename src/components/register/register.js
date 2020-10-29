@@ -47,7 +47,7 @@ class Register extends React.Component {
             <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
               <legend className="f1 fw6 ph0 mh0">Register</legend>
               <div className="mt3">
-                <label className="db fw6 lh-copy f6" for="Name">
+                <label className="db fw6 lh-copy f6" htmlFor="Name">
                   Name
                 </label>
                 <input
@@ -59,7 +59,7 @@ class Register extends React.Component {
                 />
               </div>
               <div className="mt3">
-                <label className="db fw6 lh-copy f6" for="email-address">
+                <label className="db fw6 lh-copy f6" htmlFor="email-address">
                   Email
                 </label>
                 <input
@@ -71,7 +71,7 @@ class Register extends React.Component {
                 />
               </div>
               <div className="mv3">
-                <label className="db fw6 lh-copy f6" for="password">
+                <label className="db fw6 lh-copy f6" htmlFor="password">
                   Password
                 </label>
                 <input
